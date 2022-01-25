@@ -1,0 +1,13 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F3F3F3;
+  margin: 0;
+}
+
+.container .ql-editor {
+  width: 4in;
+  min-height: 5in;
+}

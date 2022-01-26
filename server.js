@@ -3,11 +3,13 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 const uri = process.env.MONGODB_URI
-const express = require('express');
+const express = require('express')
+const app = express()
 const { join } = require('path')
 const http = require('http');
 const socketio = require('socket.io')
 const session = require('express-session')
+const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 // io.on('connection', () => { /* … */ });
 

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 const uri = process.env.MONGODB_URI
-const app = require('express')();
-const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const app = require('express')()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 // io.on('connection', () => { /* … */ });
-server.listen(3000);
+server.listen(3000)
 
 const PORT = 3000 || process.env.PORT
 

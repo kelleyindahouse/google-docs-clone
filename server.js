@@ -12,10 +12,11 @@ const { Server } = require("socket.io");
 
 const app = express();
 const httpServer = createServer(app);
-let port = process.env.PORT;
-if (port == null || port == "") {
-  port = 8000;
-}
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Our app is running on port ${PORT}`);
+});
+
 const io = new Server(httpServer, { 
   /* options */
   cors: {
@@ -27,7 +28,7 @@ const io = new Server(httpServer, {
 //   // ...
 // });
 
-httpServer.listen(port);
+
 
 // const io = new Server(3000, {
 //   cors: {

@@ -1,16 +1,20 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
-const { join } = require('path')
+// const { join } = require('path')
 const uri = process.env.MONGODB_URI;
 const express = require('express')
 const app = express()
-const cors = require('cors')
-const server = require('http').createServer(app)
+// const cors = require('cors')
+// const server = require('http').createServer(app)
 const PORT = process.env.PORT || 5000
 
-app.use(cors())
+// app.use(cors())
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(PORT {
+  cors: {
+    origin: ['https://lofi-study-room.herokuapp.com/']
+  }
+})
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
@@ -22,7 +26,7 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
 const defaultValue = ''
 
 // listening for text changes
-io.on("connection", socket => {
+io.on('connection', socket => {
   socket.on('get-document', async documentId => {
     // capturing function to find document by Id
     const document = await findOrCreateDocument(documentId)

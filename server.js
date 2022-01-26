@@ -42,7 +42,7 @@ httpServer.listen(port);
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
 
-mongoose.connect(process.env.MONGODB_URI, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect('process.env.MONGODB_URI', { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log('Error:- ' + err))
 

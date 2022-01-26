@@ -1,23 +1,18 @@
 // require('dotenv').config()
+import { createServer } from "http";
+import { Server } from "socket.io";
+const { io } = require("socket.io-client");
+const mongoose = require('mongoose');
+const Document = require('./Document');
+const uri = process.env.MONGODB_URI;
+const socket = io("https://lofi-study-room.herokuapp.com/");
 
-const mongoose = require('mongoose')
-const Document = require('./Document')
-const uri = process.env.MONGODB_URI
-const express = require('express')
-const app = express()
-const { join } = require('path')
-const http = require('http');
-const socketio = require('socket.io')
-const session = require('express-session')
-const server = require('http').createServer(app)
-const io = require('socket.io')(server)
-// io.on('connection', () => { /* … */ });
-
-sessionStore = new session.MemoryStore();
-
-app.set('socketio', io)
-
-// app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: "https://lofi-study-room.herokuapp.com/"
+  }
+})
 
 // const io = require('socket.io')(3000 {
 //   cors: {
@@ -27,9 +22,6 @@ app.set('socketio', io)
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
-app.use(express.static(join(__dirname, 'client', 'build')))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
 
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
@@ -67,5 +59,5 @@ async function findOrCreateDocument(id) {
   return await Document.create({ _id: id, data: defaultValue })
 }
 
-const PORT = process.env.PORT || 6565
-server.listen(PORT, () => console.log(`Server running on ${PORT}`))
+// const PORT = process.env.PORT || 6565
+// server.listen(PORT, () => console.log(`Server running on ${PORT}`))

@@ -11,10 +11,6 @@ const PORT = 3000 || process.env.PORT
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
-app.use(express.static(join(__dirname, 'client', 'build')))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
 // const io = require('socket.io')(3000 {
 //   cors: {
 //     origin: ['https://lofi-study-room.herokuapp.com/']

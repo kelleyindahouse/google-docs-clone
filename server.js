@@ -5,11 +5,11 @@ const app = require('express')()
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 // io.on('connection', () => { /* … */ });
-server.listen(3000)
 
 const PORT = 3000 || process.env.PORT
+server.listen(PORT)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
 // const io = require('socket.io')(3000 {
 //   cors: {

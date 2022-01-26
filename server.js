@@ -8,7 +8,6 @@ const { join } = require('path')
 const http = require('http');
 const socketio = require('socket.io')
 const session = require('express-session')
-const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 // io.on('connection', () => { /* … */ });
 

@@ -1,9 +1,12 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
+const uri = process.env.MONGODB_URI;
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
-const uri = process.env.MONGODB_URI;
+mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.log('Error:- ' + err))
 
 const io = require("socket.io")(3001, {
   cors: {

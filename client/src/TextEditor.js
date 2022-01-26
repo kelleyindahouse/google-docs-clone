@@ -34,7 +34,7 @@ function TextEditor() {
 
   // setting up socket and disconnect when no longer needed
   useEffect(() => {
-    const s = io("https://lofi-study-room.herokuapp.com/")
+    const s = io("http://localhost:3001")
     setSocket(s)
 
     return () => {

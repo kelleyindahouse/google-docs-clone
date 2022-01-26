@@ -5,7 +5,7 @@ const Document = require('./Document')
 const uri = process.env.MONGODB_URI
 const express = require('express');
 const app = express()
-const path = require('path');
+// const path = require('path');
 const http = require('http');
 const socketio = require('socket.io')
 const session = require('express-session')
@@ -27,9 +27,9 @@ app.set('socketio', io)
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.urlencoded({ extended: true }))
+// app.use(express.json())
 
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))

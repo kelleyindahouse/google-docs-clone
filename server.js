@@ -1,14 +1,17 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
-// const { join } = require('path')
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI
+const { join } = require('path')
 const express = require('express')
 const app = express()
-// const cors = require('cors')
-// const server = require('http').createServer(app)
-const PORT = process.env.PORT || 5000
 
-// app.use(cors())
+const PORT = 3000 || process.env.PORT
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+
+app.use(express.static(join(__dirname, 'client', 'build')))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 const io = require('socket.io')(3000 {
   cors: {
@@ -53,5 +56,3 @@ async function findOrCreateDocument(id) {
   if (document) return document
   return await Document.create({ _id: id, data: defaultValue })
 }
-
-server.listen(PORT, () => { console.log(`Server Running on PORT - ${PORT}`) })

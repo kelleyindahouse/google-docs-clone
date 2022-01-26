@@ -12,6 +12,10 @@ const { Server } = require("socket.io");
 
 const app = express();
 const httpServer = createServer(app);
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
 const io = new Server(httpServer, { 
   /* options */
   cors: {
@@ -23,7 +27,7 @@ const io = new Server(httpServer, {
 //   // ...
 // });
 
-httpServer.listen(3000);
+httpServer.listen(port);
 
 // const io = new Server(3000, {
 //   cors: {

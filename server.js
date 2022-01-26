@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 const Document = require('./Document');
+const uri = process.env.MONGODB_URI;
+
 
 const express = require("express");
 const { createServer } = require("http");
@@ -42,7 +44,7 @@ httpServer.listen(port);
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
 
-mongoose.connect('process.env.MONGODB_URI', { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log('Error:- ' + err))
 

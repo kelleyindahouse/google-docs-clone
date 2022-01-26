@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 5000
 
 // app.use(cors())
 
-const io = require('socket.io')(PORT {
+const io = require('socket.io')(3000 {
   cors: {
     origin: ['https://lofi-study-room.herokuapp.com/']
   }

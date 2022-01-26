@@ -8,7 +8,7 @@ const uri = process.env.MONGODB_URI;
 const express = require("express");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
-const socket = io("https://lofi-study-room.herokuapp.com/");
+// const socket = io("https://lofi-study-room.herokuapp.com/");
 
 const app = express();
 const httpServer = createServer(app);

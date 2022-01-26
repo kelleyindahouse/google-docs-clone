@@ -1,13 +1,20 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
-const express = require('express')
 const { join } = require('path')
 const uri = process.env.MONGODB_URI;
+const express = require('express')
 const app = express()
+const cors = require('cors')
+const server = require('http').createServer(app)
+const PORT = process.env.PORT || 5000
 
-app.use(express.static(join(__dirname, 'client', 'build')))
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('clientside/build'))
+}
+
+app.use(cors())
+
+const io = require('socket.io')(server)
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
@@ -15,12 +22,6 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log('Error:- ' + err))
 
-const io = require("socket.io")(3001, {
-  cors: {
-    origin: "https://lofi-study-room.herokuapp.com/",
-    methods: ["GET", "POST"]
-  }
-})
 
 const defaultValue = ''
 
@@ -52,3 +53,5 @@ async function findOrCreateDocument(id) {
   if (document) return document
   return await Document.create({ _id: id, data: defaultValue })
 }
+
+server.listen(PORT, () => { console.log(`Server Running on PORT - ${PORT}`) })

@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 
+mongoose.connect('mongodb://localhost:27017/lofinotes');
 
-mongoose.connect('mongodb://localhost:27017/google-docs-clone');
+const uri = process.env.MONGODB_URI;
 
 const io = require("socket.io")(3001, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://lofi-study-room.herokuapp.com/",
     methods: ["GET", "POST"]
   }
 })

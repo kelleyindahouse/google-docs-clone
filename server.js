@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 
-mongoose.connect('mongodb://localhost:27017/lofinotes');
+// mongoose.connect('mongodb://localhost:27017/lofinotes');
 
 const uri = process.env.MONGODB_URI;
 

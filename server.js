@@ -1,13 +1,20 @@
+require('dotenv').config()
+
 const mongoose = require('mongoose')
 const Document = require('./Document')
 const uri = process.env.MONGODB_URI
 const app = require('express')()
+const path = require('path');
+const http = require('http');
+const socketio = require('socket.io')
+const session = require('express-session')
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 // io.on('connection', () => { /* … */ });
 
-const PORT = 3000 || process.env.PORT
-server.listen(PORT)
+sessionStore = new session.MemoryStore();
+
+app.set('socketio', io)
 
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 
@@ -18,6 +25,10 @@ server.listen(PORT)
 // })
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
 mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
@@ -54,3 +65,6 @@ async function findOrCreateDocument(id) {
   if (document) return document
   return await Document.create({ _id: id, data: defaultValue })
 }
+
+const PORT = process.env.PORT || 6565
+server.listen(PORT, () => console.log(`Server running on ${PORT}`))

@@ -1,18 +1,35 @@
 // require('dotenv').config()
-import { createServer } from "http";
-import { Server } from "socket.io";
-const { io } = require("socket.io-client");
+
 const mongoose = require('mongoose');
 const Document = require('./Document');
 const uri = process.env.MONGODB_URI;
+
+
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
 const socket = io("https://lofi-study-room.herokuapp.com/");
 
-const httpServer = createServer();
-const io = new Server(httpServer, {
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, { 
+  /* options */
   cors: {
     origin: "https://lofi-study-room.herokuapp.com/"
   }
-})
+});
+
+// io.on("connection", (socket) => {
+//   // ...
+// });
+
+httpServer.listen(3000);
+
+// const io = new Server(3000, {
+//   cors: {
+//     origin: "https://lofi-study-room.herokuapp.com/"
+//   }
+// })
 
 // const io = require('socket.io')(3000 {
 //   cors: {
@@ -31,7 +48,7 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
 const defaultValue = ''
 
 // listening for text changes
-io.on('connection', socket => {
+io.on('connection', (socket) => {
   socket.on('get-document', async documentId => {
     // capturing function to find document by Id
     const document = await findOrCreateDocument(documentId)

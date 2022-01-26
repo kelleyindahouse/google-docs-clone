@@ -3,7 +3,6 @@ const Document = require('./Document')
 const express = require('express')
 const { join } = require('path')
 const uri = process.env.MONGODB_URI;
-
 const app = express()
 
 app.use(express.static(join(__dirname, 'client', 'build')))
@@ -16,12 +15,7 @@ mongoose.connect(uri, { useUnifiedTopology: true, useNewUrlParser: true })
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.log('Error:- ' + err))
 
-const io = require("socket.io")(3001, {
-  cors: {
-    origin: "https://lofi-study-room.herokuapp.com/",
-    methods: ["GET", "POST"]
-  }
-})
+const io = require("socket.io")("https://lofi-study-room.herokuapp.com/")
 
 const defaultValue = ''
 

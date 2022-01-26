@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
 const Document = require('./Document')
 const uri = process.env.MONGODB_URI
-const { join } = require('path')
-const express = require('express')
-const app = express()
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+// io.on('connection', () => { /* … */ });
+server.listen(3000);
 
 const PORT = 3000 || process.env.PORT
 
@@ -13,11 +15,11 @@ app.use(express.static(join(__dirname, 'client', 'build')))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-const io = require('socket.io')(3000 {
-  cors: {
-    origin: ['https://lofi-study-room.herokuapp.com/']
-  }
-})
+// const io = require('socket.io')(3000 {
+//   cors: {
+//     origin: ['https://lofi-study-room.herokuapp.com/']
+//   }
+// })
 
 // mongoose.connect('mongodb://localhost:27017/lofinotes');
 
